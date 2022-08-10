@@ -235,6 +235,13 @@
     "@babel/helper-plugin-utils" "^7.18.9"
     "@babel/plugin-syntax-typescript" "^7.18.6"
 
+"@babel/runtime@^7.18.9":
+  version "7.18.9"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.18.9.tgz#b4fcfce55db3d2e5e080d2490f608a3b9f407f4a"
+  integrity sha512-lkqXDcvlFT5rvEjiu6+QYO+1GXrEHRo2LOtS7E4GtX5ESIZOgepqsZBVIj6Pv+a6zqsya9VCgiK1KAK4BvJDAw==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/standalone@^7.18.11":
   version "7.18.12"
   resolved "https://registry.yarnpkg.com/@babel/standalone/-/standalone-7.18.12.tgz#4c0abdf1b5213394e73a0ba5500dcc287194a20d"
@@ -366,11 +373,12 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@mirrorworld/web3.js@^1.0.0-alpha.0":
-  version "1.0.0-alpha.0"
-  resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.0.0-alpha.0.tgz#d18665bd62ddd9a9e7ceae65dbbc8dd65b2b54ca"
-  integrity sha512-Y9DeDcIo5QSgy1UFfOVGOQ+zVeBv5I0rI96Z9WF2MPMGc2BCbLukPfv1Yci2W1GrPqQ4dAt8KcpjPhUOPqs3kA==
+"@mirrorworld/web3.js@^1.0.0-alpha.1":
+  version "1.0.0-alpha.1"
+  resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.0.0-alpha.1.tgz#aa27be83d710fd2b354eb931bfe333502ba3b1cb"
+  integrity sha512-X5S6euDmpkcszNZa/hjD914pbrpRbKWpj8Yp0mKIprqtBATkBAuKjYl9/QObAFWzyoKqheCSM59bpI+K20HT4w==
   dependencies:
+    "@babel/runtime" "^7.18.9"
     "@types/bson" "^4.2.0"
     axios "^0.27.2"
     bson "^4.6.5"
@@ -3518,6 +3526,11 @@ redis-parser@^3.0.0:
   integrity sha512-DJnGAeenTdpMEH6uAJRK/uiyEIH9WVsUmoLwzudwGJUwZPp80PDBWPHXSAGNPwNvIXAbe7MSUB1zQFugFml66A==
   dependencies:
     redis-errors "^1.0.0"
+
+regenerator-runtime@^0.13.4:
+  version "0.13.9"
+  resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
+  integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
 
 require-directory@^2.1.1:
   version "2.1.1"
