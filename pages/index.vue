@@ -14,7 +14,15 @@
       <button @click="getTokens">
         Get tokens
       </button>
-      <pre v-if="mirrorworld.tokens" v-html="tokens" style="white-space: pre-wrap" />
+      <pre v-if="mirrorworld.tokens" v-html="tokens" style="white-space: pre-wrap; max-height: 300px; overflow: scroll" />
+    </div>
+    <br />
+    <div>
+      <h2>Get NFTs</h2>
+      <button @click="getNFTs">
+        Get NFTs
+      </button>
+      <pre v-if="mirrorworld.nfts" v-html="nfts" style="white-space: pre-wrap; max-height: 300px; overflow: scroll" />
     </div>
     <br />
     <div>
@@ -22,7 +30,7 @@
       <button @click="getTransactions">
         Get transactions
       </button>
-      <pre v-if="mirrorworld.transactions" v-html="transactions" style="white-space: pre-wrap" />
+      <pre v-if="mirrorworld.transactions" v-html="transactions" style="white-space: pre-wrap; max-height: 300px; overflow: scroll" />
     </div>
     <br />
     <div>
@@ -151,6 +159,7 @@ const mirrorworld = ref<MirrorWorld>(
 const user = computed(() => formatHighlight(JSON.stringify(mirrorworld.value.user, null, 2)))
 const tokens = computed(() => formatHighlight(JSON.stringify(mirrorworld.value.tokens, null, 2)))
 const transactions = computed(() => formatHighlight(JSON.stringify(mirrorworld.value.transactions, null, 2)))
+const nfts = computed(() => formatHighlight(JSON.stringify(mirrorworld.value.nfts, null, 2)))
 
 async function login() {
   const { refreshToken } = await mirrorworld.value.login()
@@ -163,6 +172,13 @@ async function getTokens () {
 
 async function getTransactions () {
   await mirrorworld.value.getTransactions()
+}
+
+async function getNFTs () {
+  await mirrorworld.value.getNFTs({
+    limit: 20,
+    offset: 0
+  })
 }
 
 const transferResult = ref()
