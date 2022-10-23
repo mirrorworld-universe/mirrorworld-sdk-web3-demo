@@ -139,6 +139,12 @@
       <label style="display: block">price: <input v-model="cancelListingPayload.price" type="number" placeholder="price" /></label>
       <pre v-if="cancelListingResult" v-html="parsedCancelListingResult" style="white-space: pre-wrap" />
     </div>
+    <div v-if="mirrorworld.user">
+      <h2>Logout</h2>
+      <button @click="logout">
+        logout
+      </button>
+    </div>
   </main>
 </template>
 
@@ -150,9 +156,9 @@ import formatHighlight from 'json-format-highlight'
 
 const mirrorworld = ref<MirrorWorld>(
   new MirrorWorld({
-    apiKey: "sPnX5cIVW7n5ZDfcAAE9BazWpDVJfOteJSr",
+    apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
     env: ClusterEnvironment.testnet,
-    clientId: "foo"
+    staging: true
   })
 )
 
@@ -162,8 +168,12 @@ const transactions = computed(() => formatHighlight(JSON.stringify(mirrorworld.v
 const nfts = computed(() => formatHighlight(JSON.stringify(mirrorworld.value.nfts, null, 2)))
 
 async function login() {
-  const { refreshToken } = await mirrorworld.value.login()
-  localStorage.setItem(`app-refresh-token`, refreshToken)
+  try {
+    const { refreshToken } = await mirrorworld.value.login()
+    localStorage.setItem(`app-refresh-token`, refreshToken)
+  } catch (e) {
+    console.error(e)
+  }
 }
 
 async function getTokens () {
@@ -312,20 +322,31 @@ async function cancelListing () {
   )
 }
 
-
+async function logout () {
+  if (mirrorworld.value.user) {
+    console.debug("logout user")
+    await mirrorworld.value.logout()
+  }
+}
 
 onBeforeMount(() => {
   const refreshToken = localStorage.getItem(`app-refresh-token`)
   if (refreshToken) {
     mirrorworld.value = new MirrorWorld({
-      apiKey: "sPnX5cIVW7n5ZDfcAAE9BazWpDVJfOteJSr",
+      apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
       env: ClusterEnvironment.testnet,
-      clientId: "foo",
-      autoLoginCredentials: refreshToken
+      autoLoginCredentials: refreshToken,
+      staging: true
     })
     mirrorworld.value.on('auth:refreshToken', async (refreshToken) => {
       await localStorage.setItem(`app-refresh-token`, refreshToken)
       await mirrorworld.value.fetchUser()
+    })
+  } else {
+    mirrorworld.value = new MirrorWorld({
+      apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
+      env: ClusterEnvironment.testnet,
+      staging: true
     })
   }
 })

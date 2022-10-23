@@ -373,10 +373,10 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@mirrorworld/web3.js@1.0.0-alpha.5":
-  version "1.0.0-alpha.5"
-  resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.0.0-alpha.5.tgz#12dc7520e33769af770fd858bc1783dcf3ac8266"
-  integrity sha512-d5j+X7AIXpfA3OzvS9ANdZUG9yR+zlfs/+SFagmrfejGB7TC6QAX9ph5W9rxaIkVVgmlDF7Q9KMia+n9ZmIexw==
+"@mirrorworld/web3.js@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/@mirrorworld/web3.js/-/web3.js-1.1.0.tgz#7bf2a30aa9e9f62f84e8efe1792841c4b504e6dc"
+  integrity sha512-A/2e7pFcFQSYW9Nt1mHLRHIaWRfH68fVkbBkEyHmt1EY/AYpANcIp49/n1VgRvnH8ukKXzjFYG67XFUm2zoylg==
   dependencies:
     "@babel/runtime" "^7.18.9"
     "@types/bson" "^4.2.0"
