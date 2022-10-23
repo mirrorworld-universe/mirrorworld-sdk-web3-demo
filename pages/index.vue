@@ -158,7 +158,6 @@ const mirrorworld = ref<MirrorWorld>(
   new MirrorWorld({
     apiKey: "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM",
     env: ClusterEnvironment.testnet,
-    staging: true
   })
 )
 
