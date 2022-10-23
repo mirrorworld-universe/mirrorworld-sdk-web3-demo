@@ -335,7 +335,6 @@ onBeforeMount(() => {
       apiKey: "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM",
       env: ClusterEnvironment.testnet,
       autoLoginCredentials: refreshToken,
-      staging: true
     })
     mirrorworld.value.on('auth:refreshToken', async (refreshToken) => {
       await localStorage.setItem(`app-refresh-token`, refreshToken)
@@ -345,7 +344,6 @@ onBeforeMount(() => {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM",
       env: ClusterEnvironment.testnet,
-      staging: true
     })
   }
 })
