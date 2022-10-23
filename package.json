@@ -10,7 +10,7 @@
     "nuxt": "3.0.0-rc.6"
   },
   "dependencies": {
-    "@mirrorworld/web3.js": "^1.1.0",
+    "@mirrorworld/web3.js": "^1.2.0",
     "@types/bson": "^4.2.0",
     "bson": "^4.6.5",
     "json-format-highlight": "^1.0.4"
