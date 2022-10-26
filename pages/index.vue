@@ -157,7 +157,7 @@ import formatHighlight from 'json-format-highlight'
 const mirrorworld = ref<MirrorWorld>(
   new MirrorWorld({
     apiKey: "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM",
-    env: ClusterEnvironment.testnet,
+    env: ClusterEnvironment.mainnet,
   })
 )
 
@@ -333,7 +333,7 @@ onBeforeMount(() => {
   if (refreshToken) {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM",
-      env: ClusterEnvironment.testnet,
+      env: ClusterEnvironment.mainnet,
       autoLoginCredentials: refreshToken,
     })
     mirrorworld.value.on('auth:refreshToken', async (refreshToken) => {
@@ -343,7 +343,7 @@ onBeforeMount(() => {
   } else {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM",
-      env: ClusterEnvironment.testnet,
+      env: ClusterEnvironment.mainnet,
     })
   }
 })

@@ -334,7 +334,7 @@ onBeforeMount(() => {
   if (refreshToken) {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
-      env: ClusterEnvironment.testnet,
+      env: ClusterEnvironment.mainnet,
       autoLoginCredentials: refreshToken,
       staging: true
     })
@@ -345,7 +345,7 @@ onBeforeMount(() => {
   } else {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
-      env: ClusterEnvironment.testnet,
+      env: ClusterEnvironment.mainnet,
       staging: true
     })
   }
