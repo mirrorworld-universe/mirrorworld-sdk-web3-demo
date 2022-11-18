@@ -67,18 +67,6 @@
     </div>
     <br />
     <div>
-      <h2>Create verified sub-collection</h2>
-      <button @click="createVerifiedSubCollection">
-        Create verified sub-collection
-      </button>
-      <label style="display: block">name: <input v-model="createVerifiedSubCollectionPayload.name" placeholder="name" /></label>
-      <label style="display: block">symbol: <input v-model="createVerifiedSubCollectionPayload.symbol" placeholder="symbol" /></label>
-      <label style="display: block">metadataUri: <input v-model="createVerifiedSubCollectionPayload.metadataUri" placeholder="metadataUri" /></label>
-      <label style="display: block">parentCollection: <input v-model="createVerifiedSubCollectionPayload.parentCollection" placeholder="parentCollection" /></label>
-      <pre v-if="createVerifiedSubCollectionResult" v-html="parsedCreateVerifiedSubCollection" style="white-space: pre-wrap" />
-    </div>
-    <br />
-    <div>
       <h2>Mint NFT into collection</h2>
       <button @click="mintNFT">
         Mint NFT into collection
@@ -88,6 +76,20 @@
       <label style="display: block">metadataUri: <input v-model="mintNFTPayload.metadataUri" placeholder="metadataUri" /></label>
       <label style="display: block">collection: <input v-model="mintNFTPayload.collection" placeholder="collection" /></label>
       <pre v-if="mintNFTResult" v-html="parsedNFT" style="white-space: pre-wrap" />
+    </div>
+    <br />
+    <div>
+      <h2>Update NFT Metadata</h2>
+      <button @click="updateNFT">
+        Update NFT Metadata
+      </button>
+      <label style="display: block">mintAddress: <input v-model="updateNFTPayload.mintAddress" placeholder="mint_address" /></label>
+      <label style="display: block">name: <input v-model="updateNFTPayload.name" placeholder="name" /></label>
+      <label style="display: block">symbol: <input v-model="updateNFTPayload.symbol" placeholder="symbol" /></label>
+      <label style="display: block">metadataUri: <input v-model="updateNFTPayload.metadataUri" placeholder="metadataUri" /></label>
+      <label style="display: block">sellerFeeBasisPoints: <input v-model="updateNFTPayload.sellerFeeBasisPoints" type="number" min="0" max="10000" placeholder="sellerFeeBasisPoints" /></label>
+      <label style="display: block">updateAuthority: <input v-model="updateNFTPayload.updateAuthority" placeholder="updateAuthority" /></label>
+      <pre v-if="updateNFTResult" v-html="parsedUpdateNFT" style="white-space: pre-wrap" />
     </div>
     <br />
     <div>
@@ -107,6 +109,7 @@
       </button>
       <label style="display: block">mintAddress: <input v-model="listNFTPayload.mintAddress" placeholder="mintAddress" /></label>
       <label style="display: block">price: <input v-model="listNFTPayload.price" type="number" placeholder="price" /></label>
+      <label style="display: block">auctionHouse(optional): <input v-model="listNFTPayload.auctionHouse" placeholder="auctionHouse" /></label>
       <pre v-if="listNFTResult" v-html="parsedListNFTResult" style="white-space: pre-wrap" />
     </div>
     <br />
@@ -117,6 +120,7 @@
       </button>
       <label style="display: block">mintAddress: <input v-model="buyNFTPayload.mintAddress" placeholder="mintAddress" /></label>
       <label style="display: block">price: <input v-model="buyNFTPayload.price" type="number" placeholder="price" /></label>
+      <label style="display: block">auctionHouse(optional): <input v-model="buyNFTPayload.auctionHouse" placeholder="auctionHouse" /></label>
       <pre v-if="buyNFTResult" v-html="parsedBuyNFTResult" style="white-space: pre-wrap" />
     </div>
     <br />
@@ -127,6 +131,7 @@
       </button>
       <label style="display: block">mintAddress: <input v-model="updateListingPayload.mintAddress" placeholder="mintAddress" /></label>
       <label style="display: block">price: <input v-model="updateListingPayload.price" type="number" placeholder="price" /></label>
+      <label style="display: block">auctionHouse(optional): <input v-model="updateListingPayload.auctionHouse" placeholder="auctionHouse" /></label>
       <pre v-if="updateListingResult" v-html="parsedUpdateListingResult" style="white-space: pre-wrap" />
     </div>
     <br />
@@ -137,6 +142,7 @@
       </button>
       <label style="display: block">mintAddress: <input v-model="cancelListingPayload.mintAddress" placeholder="mintAddress" /></label>
       <label style="display: block">price: <input v-model="cancelListingPayload.price" type="number" placeholder="price" /></label>
+      <label style="display: block">auctionHouse(optional): <input v-model="cancelListingPayload.auctionHouse" placeholder="auctionHouse" /></label>
       <pre v-if="cancelListingResult" v-html="parsedCancelListingResult" style="white-space: pre-wrap" />
     </div>
     <div v-if="mirrorworld.user">
@@ -228,20 +234,6 @@ async function createVerifiedCollection () {
   )
 }
 
-const createVerifiedSubCollectionResult = ref()
-const createVerifiedSubCollectionPayload = reactive({
-  name: "",
-  symbol: "",
-  metadataUri: "https://mirrormetaplextest.s3.amazonaws.com/assets/15976.json",
-  parentCollection: ""
-})
-const parsedCreateVerifiedSubCollection = computed(() => formatHighlight(JSON.stringify(createVerifiedSubCollectionResult.value, null, 2)))
-async function createVerifiedSubCollection () {
-  createVerifiedSubCollectionResult.value = await mirrorworld.value.createVerifiedSubCollection(
-    createVerifiedSubCollectionPayload
-  )
-}
-
 const mintNFTResult = ref()
 const mintNFTPayload = reactive({
   name: "",
@@ -253,6 +245,28 @@ const parsedNFT = computed(() => formatHighlight(JSON.stringify(mintNFTResult.va
 async function mintNFT () {
   mintNFTResult.value = await mirrorworld.value.mintNFT(
     mintNFTPayload
+  )
+}
+
+const updateNFTResult = ref()
+const updateNFTPayload = reactive({
+  name: "",
+  symbol: "",
+  metadataUri: "https://mirrormetaplextest.s3.amazonaws.com/assets/15976.json",
+  mintAddress: "",
+  updateAuthority: "",
+  sellerFeeBasisPoints: 100
+})
+
+const _updateNFTPayload = computed(() => ({
+  ...updateNFTPayload,
+  updateAuthority: updateNFTPayload.updateAuthority === "" ? undefined : updateNFTPayload.updateAuthority
+}))
+
+const parsedUpdateNFT = computed(() => formatHighlight(JSON.stringify(updateNFTResult.value, null, 2)))
+async function updateNFT () {
+  updateNFTResult.value = await mirrorworld.value.updateNFT(
+    _updateNFTPayload.value
   )
 }
 
@@ -274,11 +288,18 @@ const listNFTResult = ref()
 const listNFTPayload = reactive({
   mintAddress: "",
   price: 1,
+  auctionHouse: ""
 })
+
+const _listNFTPayload = computed(() => ({
+  ...listNFTPayload,
+  updateAuthority: listNFTPayload.auctionHouse === "" ? undefined : listNFTPayload.auctionHouse
+}))
+
 const parsedListNFTResult = computed(() => formatHighlight(JSON.stringify(listNFTResult.value, null, 2)))
 async function listNFT () {
   listNFTResult.value = await mirrorworld.value.listNFT(
-    listNFTPayload
+    _listNFTPayload.value
   )
 }
 
@@ -288,11 +309,18 @@ const buyNFTResult = ref()
 const buyNFTPayload = reactive({
   mintAddress: "",
   price: 1,
+  auctionHouse: ""
 })
+
+const _buyNFTPayload = computed(() => ({
+  ...buyNFTPayload,
+  updateAuthority: buyNFTPayload.auctionHouse === "" ? undefined : buyNFTPayload.auctionHouse
+}))
+
 const parsedBuyNFTResult = computed(() => formatHighlight(JSON.stringify(buyNFTResult.value, null, 2)))
 async function buyNFT () {
   buyNFTResult.value = await mirrorworld.value.buyNFT(
-    buyNFTPayload
+    _buyNFTPayload.value
   )
 }
 
@@ -301,11 +329,18 @@ const updateListingResult = ref()
 const updateListingPayload = reactive({
   mintAddress: "",
   price: 1,
+  auctionHouse: ""
 })
+
+const _updateListingPayload = computed(() => ({
+  ...updateListingPayload,
+  updateAuthority: updateListingPayload.auctionHouse === "" ? undefined : updateListingPayload.auctionHouse
+}))
+
 const parsedUpdateListingResult = computed(() => formatHighlight(JSON.stringify(updateListingResult.value, null, 2)))
 async function updateListing () {
   updateListingResult.value = await mirrorworld.value.updateNFTListing(
-    updateListingPayload
+    _updateListingPayload.value
   )
 }
 
@@ -314,11 +349,18 @@ const cancelListingResult = ref()
 const cancelListingPayload = reactive({
   mintAddress: "",
   price: 1,
+  auctionHouse: ""
 })
+
+const _cancelListingPayload = computed(() => ({
+  ...cancelListingPayload,
+  updateAuthority: cancelListingPayload.auctionHouse === "" ? undefined : cancelListingPayload.auctionHouse
+}))
+
 const parsedCancelListingResult = computed(() => formatHighlight(JSON.stringify(cancelListingResult.value, null, 2)))
 async function cancelListing () {
   cancelListingResult.value = await mirrorworld.value.cancelNFTListing(
-    cancelListingPayload
+    _cancelListingPayload.value
   )
 }
 
@@ -334,7 +376,7 @@ onBeforeMount(() => {
   if (refreshToken) {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
-      env: ClusterEnvironment.mainnet,
+      env: ClusterEnvironment.testnet,
       autoLoginCredentials: refreshToken,
       staging: true
     })
@@ -345,7 +387,7 @@ onBeforeMount(() => {
   } else {
     mirrorworld.value = new MirrorWorld({
       apiKey: "mw_testSpTASagrppVD7VVM4h0Cs9jSv0RA6iufbxf",
-      env: ClusterEnvironment.mainnet,
+      env: ClusterEnvironment.testnet,
       staging: true
     })
   }

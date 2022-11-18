@@ -10,6 +10,7 @@
     "nuxt": "3.0.0-rc.6"
   },
   "dependencies": {
+    "@fontsource/dm-sans": "^4.5.9",
     "@mirrorworld/web3.js": "^1.2.0",
     "@types/bson": "^4.2.0",
     "bson": "^4.6.5",

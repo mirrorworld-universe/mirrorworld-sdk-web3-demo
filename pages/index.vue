@@ -66,18 +66,7 @@
       <pre v-if="createVerifiedCollectionResult" v-html="parsedCreateVerifiedCollection" style="white-space: pre-wrap" />
     </div>
     <br />
-    <div>
-      <h2>Create verified sub-collection</h2>
-      <button @click="createVerifiedSubCollection">
-        Create verified sub-collection
-      </button>
-      <label style="display: block">name: <input v-model="createVerifiedSubCollectionPayload.name" placeholder="name" /></label>
-      <label style="display: block">symbol: <input v-model="createVerifiedSubCollectionPayload.symbol" placeholder="symbol" /></label>
-      <label style="display: block">metadataUri: <input v-model="createVerifiedSubCollectionPayload.metadataUri" placeholder="metadataUri" /></label>
-      <label style="display: block">parentCollection: <input v-model="createVerifiedSubCollectionPayload.parentCollection" placeholder="parentCollection" /></label>
-      <pre v-if="createVerifiedSubCollectionResult" v-html="parsedCreateVerifiedSubCollection" style="white-space: pre-wrap" />
-    </div>
-    <br />
+    
     <div>
       <h2>Mint NFT into collection</h2>
       <button @click="mintNFT">
@@ -227,19 +216,6 @@ async function createVerifiedCollection () {
   )
 }
 
-const createVerifiedSubCollectionResult = ref()
-const createVerifiedSubCollectionPayload = reactive({
-  name: "",
-  symbol: "",
-  metadataUri: "https://mirrormetaplextest.s3.amazonaws.com/assets/15976.json",
-  parentCollection: ""
-})
-const parsedCreateVerifiedSubCollection = computed(() => formatHighlight(JSON.stringify(createVerifiedSubCollectionResult.value, null, 2)))
-async function createVerifiedSubCollection () {
-  createVerifiedSubCollectionResult.value = await mirrorworld.value.createVerifiedSubCollection(
-    createVerifiedSubCollectionPayload
-  )
-}
 
 const mintNFTResult = ref()
 const mintNFTPayload = reactive({
