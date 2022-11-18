@@ -1,6 +1,6 @@
 <template>
   <main style="padding: 60px">
-    <h1>Mirror World SDK Demo</h1>
+    <h1>Mirror World SDK Demo (Staging)</h1>
     <div>
       <h2>Login</h2>
       <button @click="login">
@@ -145,6 +145,16 @@
       <label style="display: block">auctionHouse(optional): <input v-model="cancelListingPayload.auctionHouse" placeholder="auctionHouse" /></label>
       <pre v-if="cancelListingResult" v-html="parsedCancelListingResult" style="white-space: pre-wrap" />
     </div>
+    <br />
+    <div>
+      <h2>Create Marketplace</h2>
+      <button @click="createMarketplace">
+        Create Marketplace
+      </button>
+      <label style="display: block">sellerFeeBasisPoints: <input v-model="createMarketplacePayload.sellerFeeBasisPoints" type="number" placeholder="sellerFeeBasisPoints" /></label>
+      <label style="display: block">treasuryMint (optional): <input v-model="createMarketplacePayload.treasuryMint" placeholder="treasuryMint" /></label>
+      <pre v-if="createMarketplaceResult" v-html="parsedCreateMarketplaceResult" style="white-space: pre-wrap" />
+    </div>
     <div v-if="mirrorworld.user">
       <h2>Logout</h2>
       <button @click="logout">
@@ -159,6 +169,7 @@ import {computed, onBeforeMount, ref} from "vue"
 import { MirrorWorld, ClusterEnvironment } from "@mirrorworld/web3.js"
 //@ts-ignore
 import formatHighlight from 'json-format-highlight'
+import { create } from 'domain';
 
 const mirrorworld = ref<MirrorWorld>(
   new MirrorWorld({
@@ -293,7 +304,7 @@ const listNFTPayload = reactive({
 
 const _listNFTPayload = computed(() => ({
   ...listNFTPayload,
-  updateAuthority: listNFTPayload.auctionHouse === "" ? undefined : listNFTPayload.auctionHouse
+  auctionHouse: listNFTPayload.auctionHouse === "" ? undefined : listNFTPayload.auctionHouse
 }))
 
 const parsedListNFTResult = computed(() => formatHighlight(JSON.stringify(listNFTResult.value, null, 2)))
@@ -314,7 +325,7 @@ const buyNFTPayload = reactive({
 
 const _buyNFTPayload = computed(() => ({
   ...buyNFTPayload,
-  updateAuthority: buyNFTPayload.auctionHouse === "" ? undefined : buyNFTPayload.auctionHouse
+  auctionHouse: buyNFTPayload.auctionHouse === "" ? undefined : buyNFTPayload.auctionHouse
 }))
 
 const parsedBuyNFTResult = computed(() => formatHighlight(JSON.stringify(buyNFTResult.value, null, 2)))
@@ -334,7 +345,7 @@ const updateListingPayload = reactive({
 
 const _updateListingPayload = computed(() => ({
   ...updateListingPayload,
-  updateAuthority: updateListingPayload.auctionHouse === "" ? undefined : updateListingPayload.auctionHouse
+  auctionHouse: updateListingPayload.auctionHouse === "" ? undefined : updateListingPayload.auctionHouse
 }))
 
 const parsedUpdateListingResult = computed(() => formatHighlight(JSON.stringify(updateListingResult.value, null, 2)))
@@ -354,13 +365,31 @@ const cancelListingPayload = reactive({
 
 const _cancelListingPayload = computed(() => ({
   ...cancelListingPayload,
-  updateAuthority: cancelListingPayload.auctionHouse === "" ? undefined : cancelListingPayload.auctionHouse
+  auctionHouse: cancelListingPayload.auctionHouse === "" ? undefined : cancelListingPayload.auctionHouse
 }))
 
 const parsedCancelListingResult = computed(() => formatHighlight(JSON.stringify(cancelListingResult.value, null, 2)))
 async function cancelListing () {
   cancelListingResult.value = await mirrorworld.value.cancelNFTListing(
     _cancelListingPayload.value
+  )
+}
+
+const createMarketplaceResult = ref()
+const createMarketplacePayload = reactive({
+  treasuryMint: "",
+  sellerFeeBasisPoints: 200,
+})
+
+const _createMarketplacePayload = computed(() => ({
+  ...createMarketplacePayload,
+  treasuryMint: createMarketplacePayload.treasuryMint === "" ? undefined : createMarketplacePayload.treasuryMint
+}))
+
+const parsedCreateMarketplaceResult = computed(() => formatHighlight(JSON.stringify(createMarketplaceResult.value, null, 2)))
+async function createMarketplace () {
+  createMarketplaceResult.value = await mirrorworld.value.createMarketplace(
+    _createMarketplacePayload.value
   )
 }
 
