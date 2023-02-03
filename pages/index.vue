@@ -523,7 +523,7 @@ const buyNFTPayload = reactive({
 
 const _buyNFTPayload = computed(() => ({
   ...buyNFTPayload,
-  updateAuthority:
+  auctionHouse:
     buyNFTPayload.auctionHouse === "" ? undefined : buyNFTPayload.auctionHouse,
 }));
 
