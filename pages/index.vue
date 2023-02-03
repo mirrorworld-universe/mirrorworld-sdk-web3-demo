@@ -567,7 +567,7 @@ const cancelListingPayload = reactive({
 
 const _cancelListingPayload = computed(() => ({
   ...cancelListingPayload,
-  updateAuthority:
+  auctionHouse:
     cancelListingPayload.auctionHouse === ""
       ? undefined
       : cancelListingPayload.auctionHouse,
