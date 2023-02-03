@@ -543,7 +543,7 @@ const updateListingPayload = reactive({
 
 const _updateListingPayload = computed(() => ({
   ...updateListingPayload,
-  updateAuthority:
+  auctionHouse:
     updateListingPayload.auctionHouse === ""
       ? undefined
       : updateListingPayload.auctionHouse,
