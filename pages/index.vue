@@ -347,8 +347,8 @@ import { MirrorWorld, ClusterEnvironment, Solana } from "@mirrorworld/web3.js";
 //@ts-ignore
 import formatHighlight from "json-format-highlight";
 
-var env = ClusterEnvironment.testnet
-var chainConfig = Solana('devnet')
+var env = ClusterEnvironment.mainnet
+var chainConfig = Solana('mainnet-beta')
 var apiKey = "mw_YGPw4YIh4ZWtBYVRjpsTIloaB2oa5sJQsGM"
 const mirrorworld = ref<MirrorWorld>(
   new MirrorWorld({
