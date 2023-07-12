@@ -12,7 +12,7 @@
 
 <script lang="ts" setup>
 import {computed, nextTick, onMounted, ref, watch, watchEffect} from "vue"
-import { MirrorWorld, ClusterEnvironment, IUser } from "@mirrorworld/web3.js"
+import { MirrorWorld, ClusterEnvironment, IUser, Sui } from "@mirrorworld/web3.js"
 import { useRoute } from "#app";
 import formatHighlight from "json-format-highlight"
 
@@ -23,7 +23,7 @@ const mirrorworld = ref<MirrorWorld>(
   new MirrorWorld({
     apiKey: "sPnX5cIVW7n5ZDfcAAE9BazWpDVJfOteJSr",
     env: ClusterEnvironment.testnet,
-    clientId: "foo"
+    chainConfig: Sui('testnet'),
   })
 )
 
